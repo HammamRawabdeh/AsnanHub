@@ -1,16 +1,12 @@
 # asnan_hub
 
-A new Flutter project.
+## What is Asnan Hub ?
 
-## Getting Started
+AsnanHub is a mobile app built with Flutter that bridges the gap between dental school practical students (4th and 5th year) and patients. The platform helps students find real clinical cases to fulfill their practical requirements, while enabling patients to access dental services more easily and at lower cost.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## what stack did we use ?
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- flutter for frontend
+- firebase for backend
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

@@ -1,0 +1,41 @@
+============================================================
+                FORENSIC ANALYSIS REPORT
+============================================================
+
+===== FILE METADATA & HASHES =====
+
+File: c:\Users\Home\Documents\university\forensic_project\evidence_files\example1.txt
+Size (bytes): 68
+Created: 2025-12-28 12:02:58.042367
+Modified: 2026-01-07 08:13:44.525905
+SHA-256: 3ee8b633ca09e57039f6e3195ddaea5a33715d9c01df2aac207bdddec0882215
+----------------------------------------
+File: c:\Users\Home\Documents\university\forensic_project\evidence_files\report.pdf
+Size (bytes): 37988
+Created: 2025-12-28 12:02:58.071025
+Modified: 2025-11-20 11:27:41.503417
+SHA-256: 1d41f67dae94e88017ccb013a1f2124f853a5027c309e4f9e16d28187a592fea
+----------------------------------------
+File: c:\Users\Home\Documents\university\forensic_project\evidence_files\image1.jpg
+Size (bytes): 53603
+Created: 2025-12-28 12:02:58.058129
+Modified: 2025-11-20 11:31:39.006601
+SHA-256: 1f8ae425f4710eb4c340bed2e39c7255bff330a09c914bde7aee16ba8e0a3e24
+----------------------------------------
+File: c:\Users\Home\Documents\university\forensic_project\evidence_files\notes.txt
+Size (bytes): 47
+Created: 2025-12-28 12:02:58.066758
+Modified: 2025-11-20 11:32:01.779180
+SHA-256: d81ca82ebf9c1d819374ad576363c1eabc577b46ab5c4f229727d660dbfb3c5e
+----------------------------------------
+
+===== SUSPICIOUS LOG ENTRIES =====
+
+Audit Failure	1/3/2026 11:55:57 PM	Microsoft-Windows-Security-Auditing	4625	Logon	"An account failed to log on.
+Account For Which Logon Failed:
+
+===== BRUTE FORCE ANALYSIS =====
+
+No brute-force activity detected.
+
+Report generated successfully.
