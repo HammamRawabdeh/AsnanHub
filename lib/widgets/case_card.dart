@@ -3,10 +3,14 @@ import '../models/case.dart';
 
 class CaseCard extends StatelessWidget {
   final Case caseItem;
+  final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
 
   const CaseCard({
     super.key,
     required this.caseItem,
+    this.onEdit,
+    this.onDelete,
   });
 
   @override
@@ -24,12 +28,32 @@ class CaseCard extends StatelessWidget {
           /// 1️⃣ Case image
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: caseItem.imageUrl.isNotEmpty
+            child: caseItem.imageUrl.isNotEmpty && 
+                   caseItem.imageUrl != 'placeholder_url'
                 ? Image.network(
                     caseItem.imageUrl,
                     height: 180,
                     width: double.infinity,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: 180,
+                        color: Colors.grey.shade300,
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported, size: 50),
+                        ),
+                      );
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        height: 180,
+                        color: Colors.grey.shade200,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    },
                   )
                 : Container(
                     height: 180,
@@ -102,6 +126,34 @@ class CaseCard extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                /// Action buttons (only for pending cases)
+                if (caseItem.state == CaseState.pending && 
+                    (onEdit != null || onDelete != null))
+                  ...[
+                    const SizedBox(height: 16),
+                    const Divider(),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (onEdit != null)
+                          TextButton.icon(
+                            onPressed: onEdit,
+                            icon: const Icon(Icons.edit, size: 18),
+                            label: const Text('Edit'),
+                          ),
+                        if (onEdit != null && onDelete != null)
+                          const SizedBox(width: 8),
+                        if (onDelete != null)
+                          OutlinedButton.icon(
+                            onPressed: onDelete,
+                            icon: const Icon(Icons.delete, size: 18),
+                            label: const Text('Cancel'),
+                          ),
+                      ],
+                    ),
+                  ],
               ],
             ),
           ),

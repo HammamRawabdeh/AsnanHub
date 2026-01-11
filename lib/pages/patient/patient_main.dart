@@ -12,7 +12,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  bool _hasShownSuccessDialog = false;
 
   final List<Widget> _screens = [MyCases(), const AddCase(), MyProfile()];
 

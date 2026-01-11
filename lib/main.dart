@@ -1,6 +1,5 @@
 
 import 'package:asnan_hub/pages/auth/auth_gate.dart';
-import 'package:asnan_hub/pages/auth/login.dart';
 import 'package:asnan_hub/theme/theme_data.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
