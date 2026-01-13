@@ -57,6 +57,8 @@ class _MyCasesState extends State<MyCases> {
             .where('patientId', isEqualTo: user!.uid)
             .orderBy('createdAt', descending: true)
             .get();
+
+            
       } catch (e) {
         // If orderBy fails (no index), fetch without ordering
         print('OrderBy failed, fetching without order: $e');

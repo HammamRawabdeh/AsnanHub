@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AuthService {
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
+//patient
 Future<UserModel?> getUserProfile() async {
   // 1. Get the current user's UID
   String? uid = FirebaseAuth.instance.currentUser?.uid;
@@ -36,6 +36,7 @@ Future<UserModel?> getUserProfile() async {
     return null;
   }
 }
+//doctor student
 Future<StudentUser?> getStudentProfile() async {
   String? uid = FirebaseAuth.instance.currentUser?.uid;
 

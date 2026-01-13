@@ -54,8 +54,8 @@ class _DoctorAvailableCasesState extends State<DoctorAvailableCases> {
             .where('state', isEqualTo: CaseState.pending.name)
             .orderBy('createdAt', descending: true)
             .get();
+            
         print("fetched with order ${snapshot.docs.length} cases");
-
       } catch (e) {
         // If orderBy fails (no index), fetch without ordering
         print('OrderBy failed, fetching without order: $e');
@@ -119,16 +119,17 @@ class _DoctorAvailableCasesState extends State<DoctorAvailableCases> {
         ),
       );
     }
-    
+    // what will happen when doctor click on book button
     Future<void> _bookCase(Case caseItem) async {
-      print("case booked");
+      FirebaseFirestore.instance.collection('cases').doc(caseItem.documentId).update({
+        'state': CaseState.booked.toString(),
+        'doctorId': user!.uid,
+      });
     }
 
     if (patientCases.isEmpty) {
       return const Scaffold(body: Center(child: Text('No cases found')));
     }
-
-
 
     return Scaffold(
       appBar: AppBar(title: const Text('My Cases')),

@@ -8,10 +8,13 @@ class Case {
   final String? description;
   final CaseState state;
   final DateTime date;
+  
+
 
   Case({
     this.documentId,
     required this.type,
+
     required this.shift,
     required this.imageUrl,
     this.description,
@@ -36,6 +39,8 @@ class Case {
         print('Error parsing case type: ${data['type']}, defaulting to dentalCheckup');
         caseType = CaseType.dentalCheckup;
       }
+
+       
 
       // Parse shift with fallback
       TimeShift timeShift;
@@ -67,12 +72,15 @@ class Case {
         caseDate = DateTime.now();
       }
 
+      
+
       // Get imageUrl with fallback
       final imageUrl = data['imageUrl'] as String? ?? '';
 
       return Case(
         documentId: doc.id,
         type: caseType,
+
         shift: timeShift,
         imageUrl: imageUrl,
         description: data['description'] as String?,
