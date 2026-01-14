@@ -1,5 +1,6 @@
 import 'package:asnan_hub/models/students.dart';
 import 'package:asnan_hub/models/user.dart';
+import 'package:asnan_hub/pages/auth/auth_gate.dart';
 import 'package:asnan_hub/services/auth_serrvice.dart';
 import 'package:asnan_hub/widgets/profile_header.dart';
 import 'package:asnan_hub/widgets/profile_info_card.dart';
@@ -72,6 +73,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
 
     if (confirm == true) {
       await FirebaseAuth.instance.signOut();
+      Navigator.of(context).push(MaterialPageRoute(builder: (builder)=>AuthGate()));
     }
   }
 
@@ -154,42 +156,47 @@ class _DoctorProfileState extends State<DoctorProfile> {
       ),
     ],
   ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Profile Header
-            ProfileHeader(
-              name: name,
-              email: email,
-            ),
-
-            // Profile Information
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: isStudent && studentUser != null
-                  ? StudentProfileInfoCard(user: studentUser!)
-                  : patientUser != null
-                      ? ProfileInfoCard(user: patientUser!)
-                      : const SizedBox.shrink(),
-            ),
-
-            // Sign Out Button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
-                  onPressed: _handleSignOut,
-                  icon: const Icon(Icons.logout),
-                  label: const Text('Sign Out'),
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+      body: RefreshIndicator(
+        onRefresh: ()async {
+            await _fetchProfile();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Profile Header
+              ProfileHeader(
+                name: name,
+                email: email,
+              ),
+        
+              // Profile Information
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: isStudent && studentUser != null
+                    ? StudentProfileInfoCard(user: studentUser!)
+                    : patientUser != null
+                        ? ProfileInfoCard(user: patientUser!)
+                        : const SizedBox.shrink(),
+              ),
+        
+              // Sign Out Button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: _handleSignOut,
+                    icon: const Icon(Icons.logout),
+                    label: const Text('Sign Out'),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

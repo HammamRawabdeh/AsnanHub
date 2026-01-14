@@ -44,26 +44,12 @@ class _DoctorAvailableCasesState extends State<DoctorAvailableCases> {
 
   Future<void> _fetchCases() async {
     if (user == null) return;
-
     try {
-      QuerySnapshot snapshot;
-      try {
-        // Fetch all pending cases (available for booking)
-        snapshot = await FirebaseFirestore.instance
-            .collection('cases')
-            .where('state', isEqualTo: CaseState.pending.name)
-            .orderBy('createdAt', descending: true)
-            .get();
-            
-        print("fetched with order ${snapshot.docs.length} cases");
-      } catch (e) {
-        // If orderBy fails (no index), fetch without ordering
-        print('OrderBy failed, fetching without order: $e');
-        snapshot = await FirebaseFirestore.instance
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
             .collection('cases')
             .where('state', isEqualTo: CaseState.pending.name)
             .get();
-      }
+       
 
       if (snapshot.docs.isEmpty) {
         print('No cases found for user: ${user!.uid}');
@@ -73,14 +59,7 @@ class _DoctorAvailableCasesState extends State<DoctorAvailableCases> {
 
       // Parse cases with error handling
       patientCases = snapshot.docs
-          .map((doc) {
-            try {
-              return Case.fromFirestore(doc);
-            } catch (e) {
-              print('Error parsing case document ${doc.id}: $e');
-              return null;
-            }
-          })
+          .map((doc) => Case.fromFirestore(doc))
           .whereType<Case>() // Filter out null values
           .toList();
 
@@ -125,10 +104,28 @@ class _DoctorAvailableCasesState extends State<DoctorAvailableCases> {
         'state': CaseState.booked.name, // changed the toString() to name
         'doctorId': user!.uid,
       });
+      await _fetchCases();
+      setState(() {});
     }
 
     if (patientCases.isEmpty) {
-      return const Scaffold(body: Center(child: Text('No cases found')));
+      return Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await _fetchCases();
+            setState(() {});
+          },
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: const [
+              SizedBox(height: 300),
+              Center(
+                child: Text('No cases found', style: TextStyle(fontSize: 16)),
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
     return Scaffold(

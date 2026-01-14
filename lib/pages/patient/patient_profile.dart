@@ -1,4 +1,5 @@
 import 'package:asnan_hub/models/user.dart';
+import 'package:asnan_hub/pages/auth/auth_gate.dart';
 import 'package:asnan_hub/services/auth_serrvice.dart';
 import 'package:asnan_hub/widgets/profile_header.dart';
 import 'package:asnan_hub/widgets/profile_info_card.dart';
@@ -59,6 +60,7 @@ class _MyProfileState extends State<MyProfile> {
 
     if (confirm == true) {
       await FirebaseAuth.instance.signOut();
+      Navigator.of(context).push( MaterialPageRoute(builder: (builder)=> AuthGate()));
     }
   }
 

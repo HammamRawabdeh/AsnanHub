@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
     });
 
     try {
-      var userCredentials = await authService.signIn(
+      await authService.signIn(
         emailController.text.trim(),
         passwordController.text,
       );

@@ -27,7 +27,6 @@ Future<UserModel?> getUserProfile() async {
       // Access fields using data() method which returns Map<String, dynamic>?
       final data = userDoc.data() as Map<String, dynamic>;
   
-      var user = UserModel.fromMap(data);
       return UserModel.fromMap(data);
     } else {
       return null;
