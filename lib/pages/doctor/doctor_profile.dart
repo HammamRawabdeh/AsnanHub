@@ -6,6 +6,7 @@ import 'package:asnan_hub/widgets/profile_info_card.dart';
 import 'package:asnan_hub/widgets/student_profile_info_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:asnan_hub/pages/edit_profile.dart';
 
 class DoctorProfile extends StatefulWidget {
   const DoctorProfile({super.key});
@@ -129,6 +130,30 @@ class _DoctorProfileState extends State<DoctorProfile> {
     }
 
     return Scaffold(
+  appBar: AppBar(
+    title: const Text("My Profile"),
+    actions: [
+      IconButton(
+        icon: const Icon(Icons.edit),
+        onPressed: () async {
+          // Determine which user object to pass
+          bool? updated = await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditProfile(
+                studentUser: studentUser, // Pass student if it exists
+                patientUser: patientUser, // Pass patient as fallback
+              ),
+            ),
+          );
+
+          if (updated == true) {
+            _fetchProfile(); // Refresh data
+          }
+        },
+      ),
+    ],
+  ),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -122,7 +122,7 @@ class _DoctorAvailableCasesState extends State<DoctorAvailableCases> {
     // what will happen when doctor click on book button
     Future<void> _bookCase(Case caseItem) async {
       FirebaseFirestore.instance.collection('cases').doc(caseItem.documentId).update({
-        'state': CaseState.booked.toString(),
+        'state': CaseState.booked.name, // changed the toString() to name
         'doctorId': user!.uid,
       });
     }

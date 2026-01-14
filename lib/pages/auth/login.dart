@@ -37,6 +37,7 @@ class _LoginState extends State<Login> {
 
   var authService = AuthService();
   bool _isLoading = false;
+  bool _isObscured = true; //to track visibility
 
   void handleLogin() async {
     if (_isLoading) return; // Prevent multiple clicks
@@ -190,8 +191,20 @@ class _LoginState extends State<Login> {
               SizedBox(height: 10),
               TextFormField(
                 controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(labelText: "Password"),
+                obscureText: _isObscured,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isObscured ? Icons.visibility_off : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isObscured = !_isObscured;
+                      });
+                    },
+                  ),
+                ),
               ),
 
               SizedBox(height: 10),

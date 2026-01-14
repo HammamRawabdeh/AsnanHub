@@ -30,6 +30,7 @@ class _SignupState extends State<Signup> {
 
   var authService = AuthService();
   bool _isLoading = false;
+  bool _isObscured = true; //to track visibility
 
   void handleSignup() async {
     if (!formKey.currentState!.validate()) return;
@@ -268,8 +269,20 @@ class _SignupState extends State<Signup> {
                 SizedBox(height: 10),
                 TextFormField(
                   controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(labelText: "Password"),
+                  obscureText: _isObscured,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isObscured ? Icons.visibility_off : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscured = !_isObscured;
+                        });
+                      },
+                    ),
+                  ),
                 ),
 
                 SizedBox(height: 10),
